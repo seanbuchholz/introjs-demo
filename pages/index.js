@@ -1,16 +1,68 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import { Steps, Hints } from 'intro.js-react'
+import 'intro.js/introjs.css';
+import React, { useState } from 'react'
+
+
 
 export default function Home() {
+  const [enabled, setEnabled] = useState(true)
+  const [initialStep, setInitialStep] = useState(0)
+  const [hintsEnabled, setHintsEnabled] = useState(true)
+
+
+  const onExit = () => {
+    setEnabled(false)
+  }
+  const steps = [
+    {
+      element: '.selector1',
+      intro: 'You can use this button for help',
+      position: 'right',
+    },
+    {
+      element: '.selector2',
+      intro: 'You can use this button to get more information',
+    },
+    {
+      element: '.selector3',
+      intro: 'You can use this button to contact us',
+    },
+  ];
+
+  const hints = [
+    {
+      element: '.selector4',
+      hint: 'test 1',
+      hintPosition: 'middle-middle',
+    },
+    {
+      element: '.selector5',
+      hint: 'test 2',
+    },
+  ];
+
   return (
     <div className="container">
+      <Steps
+        enabled={enabled}
+        steps={steps}
+        initialStep={initialStep}
+        onExit={onExit}
+      />
+      <Hints
+        enabled={hintsEnabled}
+        hints={hints}
+      />
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        <h1 className="title selector1">
+          Welcome to <Link href="/posts/first-post">Next.js!</Link>
         </h1>
 
         <p className="description">
@@ -18,12 +70,12 @@ export default function Home() {
         </p>
 
         <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
+          <a href="https://nextjs.org/docs" className="card selector2">
             <h3>Documentation &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className="card">
+          <a href="https://nextjs.org/learn" className="card selector4">
             <h3>Learn &rarr;</h3>
             <p>Learn about Next.js in an interactive course with quizzes!</p>
           </a>
@@ -40,7 +92,7 @@ export default function Home() {
             href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className="card"
           >
-            <h3>Deploy &rarr;</h3>
+            <h3 className="selector5">Deploy &rarr;</h3>
             <p>
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
@@ -55,7 +107,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
+          <img src="/vercel.svg" alt="Vercel" className="logo selector3" />
         </a>
       </footer>
 
